@@ -1,7 +1,7 @@
-# Calculate the sum and product from 0 to the number user entered
+# Calculate the sum and product from 1 to the number entered by the user
 user_input = int(input("Please enter a number: "))
 
-# # Validate the number before starting the calculation
+# Validate the number before starting the calculation
 if 1 <= user_input <= 10:
     total = 0
     product = 1
@@ -10,7 +10,7 @@ if 1 <= user_input <= 10:
     for i in range(1, stop):
         total += i
         product *= i
-    
+
     print(f"Sum: {total}")
     print(f"Product: {product}")
 else:
