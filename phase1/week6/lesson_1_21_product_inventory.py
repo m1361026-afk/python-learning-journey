@@ -1,4 +1,4 @@
-# Store the product's information
+# Store product information
 product = {
     "name": "Keyboard",
     "price": 1200,
