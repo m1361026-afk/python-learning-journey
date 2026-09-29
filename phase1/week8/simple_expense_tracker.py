@@ -1,23 +1,13 @@
 # Set the starting balance
 starting_balance = 10000
 
-test1_records = [
+records = [
     {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
     {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
     {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
 ]
 
-test2_records = [
-    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
-    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
-    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
-]
-
-test3_records = [
-    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
-    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
-    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
-]
+empty_records = []
 
 def calculate_total_by_type(records, target_type):
     total = 0
@@ -57,17 +47,40 @@ def is_current_balance_enough(current_balance, expense_amount):
         return True
     return False
 
-print(f"Test 1 : 收入\n目前 records = {len(test1_records)} 筆\n\n新增 income 2000\n")
-transaction1 = add_transaction(test1_records, 10000, 'income', 2000, 'salary', 'part-time job')
-print(f"Expected return: True\nActual return: {transaction1}\n\nExpected number of records: 4\nActual number of records: {len(test1_records)}\n")
+def display_all_transactions(records):
+    if len(records) == 0:
+        print("No transactions found.")
+        return
 
-print(f"Test 2 : 合法支出\n假設目前餘額足夠\n\n新增 expense 500\n")
-transaction2 = add_transaction(test2_records, 10000, 'expense', 500, 'food', 'lunch')
-print(f"Expected return: True\nActual return: {transaction2}\n\nExpected number of records: 4\nActual number of records: {len(test2_records)}\n")
+    transaction_number = 1
 
-print(f"Test 3 : 餘額不足\n設計一筆明顯超過目前餘額的 expense\n")
-transaction3 = add_transaction(test3_records, 10000, 'expense', 15000, 'game', 'LOL')
-print(f"Expected return: False\nActual return: {transaction3}\n\nExpected number of records: 3\nActual number of records: {len(test3_records)}\n")
+    for record in records:
+        print(f"Transaction {transaction_number}")
+        print(f"Type: {record['type']}")
+        print(f"Amount: {record['amount']}")
+        print(f"Category: {record['category']}")
+        print(f"Description: {record['description']}")
+        print()
+
+        transaction_number += 1
+
+print(f"正常案例:\ntest records 有 {len(records)} 筆")
+display_all_transactions(records)
+print()
+print(f"邊界案例:\nempty_records = []")
+display_all_transactions(empty_records)
+
+# print(f"Test 1 : 收入\n目前 records = {len(test1_records)} 筆\n\n新增 income 2000\n")
+# transaction1 = add_transaction(test1_records, 10000, 'income', 2000, 'salary', 'part-time job')
+# print(f"Expected return: True\nActual return: {transaction1}\n\nExpected number of records: 4\nActual number of records: {len(test1_records)}\n")
+
+# print(f"Test 2 : 合法支出\n假設目前餘額足夠\n\n新增 expense 500\n")
+# transaction2 = add_transaction(test2_records, 10000, 'expense', 500, 'food', 'lunch')
+# print(f"Expected return: True\nActual return: {transaction2}\n\nExpected number of records: 4\nActual number of records: {len(test2_records)}\n")
+
+# print(f"Test 3 : 餘額不足\n設計一筆明顯超過目前餘額的 expense\n")
+# transaction3 = add_transaction(test3_records, 10000, 'expense', 15000, 'game', 'LOL')
+# print(f"Expected return: False\nActual return: {transaction3}\n\nExpected number of records: 3\nActual number of records: {len(test3_records)}\n")
 
 
 
