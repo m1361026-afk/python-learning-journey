@@ -64,11 +64,28 @@ def display_all_transactions(records):
 
         transaction_number += 1
 
-print(f"正常案例:\ntest records 有 {len(records)} 筆")
-display_all_transactions(records)
+def display_financial_summary(records, starting_balance):
+    total_income = calculate_total_by_type(records, "income")
+    total_expense = calculate_total_by_type(records, "expense")
+    current_balance = calculate_current_balance(records, starting_balance)
+
+    print("Financial Summary")
+    print(f"Total income: {total_income}")
+    print(f"Total expense: {total_expense}")
+    print(f"Current balance: {current_balance}")
+
+print("正常資料測試")
+display_financial_summary(records, starting_balance)
 print()
-print(f"邊界案例:\nempty_records = []")
-display_all_transactions(empty_records)
+print("沒有交易測試")
+display_financial_summary(empty_records, starting_balance)
+
+
+# print(f"正常案例:\ntest records 有 {len(records)} 筆")
+# display_all_transactions(records)
+# print()
+# print(f"邊界案例:\nempty_records = []")
+# display_all_transactions(empty_records)
 
 # print(f"Test 1 : 收入\n目前 records = {len(test1_records)} 筆\n\n新增 income 2000\n")
 # transaction1 = add_transaction(test1_records, 10000, 'income', 2000, 'salary', 'part-time job')
