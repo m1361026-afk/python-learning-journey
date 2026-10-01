@@ -7,6 +7,30 @@ records = [
     {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
 ]
 
+test1_records = [
+    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
+    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
+    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
+]
+
+test2_records = [
+    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
+    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
+    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
+]
+
+test3_records = [
+    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
+    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
+    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
+]
+
+test4_records = [
+    {"type": "expense", "amount": 200, "category": "food", "description": "lunch"},
+    {"type": "income", "amount": 1000, "category": "investment", "description": "ETF-0050"},
+    {"type": "expense", "amount": 150, "category": "transportation", "description": "gas"}
+]
+
 empty_records = []
 
 def calculate_total_by_type(records, target_type):
@@ -24,23 +48,29 @@ def calculate_current_balance(records, starting_balance):
     return current_balance
 
 def add_transaction(records, starting_balance, transaction_type, amount, category, description):
+    if (transaction_type != "income") and (transaction_type != "expense"):
+        return "invalid_transaction_type"
+
+    if amount <= 0:
+        return "invalid_amount"
+    
     new_transaction = {
         "type": transaction_type,
         "amount": amount,
         "category": category,
         "description": description
     }
-
-    if new_transaction["type"] == "income":
+    
+    if transaction_type == "income":
         records.append(new_transaction)
-        return True
+        return "success"
 
-    if new_transaction["type"] == "expense":
+    if transaction_type == "expense":
         current_balance = calculate_current_balance(records, starting_balance)
         if is_current_balance_enough(current_balance, amount):
             records.append(new_transaction)
-            return True
-        return False
+            return "success"
+        return "insufficient_balance"
 
 def is_current_balance_enough(current_balance, expense_amount):
     if current_balance >= expense_amount:
@@ -74,6 +104,43 @@ def display_financial_summary(records, starting_balance):
     print(f"Total expense: {total_expense}")
     print(f"Current balance: {current_balance}")
 
+result1 = add_transaction(test1_records, starting_balance, "income", 500, "salary", "job")
+result2 = add_transaction(test2_records, starting_balance, "salary", 500, "salary", "job")
+result3 = add_transaction(test3_records, starting_balance, "income", 0, "salary", "job")
+result4 = add_transaction(test4_records, starting_balance, "expense", 500000, "food", "dinner")
+
+print("Test 1")
+print("Expected status: success")
+print(f"Actual status: {result1}")
+print()
+print("Expected number of records: 4")
+print(f"Actual number of records: {len(test1_records)}")
+print()
+
+print("Test 2")
+print("Expected status: invalid_transaction_type")
+print(f"Actual status: {result2}")
+print()
+print("Expected number of records: 3")
+print(f"Actual number of records: {len(test2_records)}")
+print()
+
+print("Test 3")
+print("Expected status: invalid_amount")
+print(f"Actual status: {result3}")
+print()
+print("Expected number of records: 3")
+print(f"Actual number of records: {len(test3_records)}")
+print()
+
+print("Test 4")
+print("Expected status: insufficient_balance")
+print(f"Actual status: {result4}")
+print()
+print("Expected number of records: 3")
+print(f"Actual number of records: {len(test4_records)}")
+print()
+
 
 user_starting_balance = float(input("Please enter your current asset: "))
 if user_starting_balance >= 0:
@@ -86,25 +153,38 @@ if user_starting_balance >= 0:
         print("4. Exit")
         print()
         choice = input("Please choose an option(1-4): ")
+
         if choice == "1":
             transaction_type = input("Please enter income or expense: ")
-            if (transaction_type == "income") or (transaction_type == "expense"):
-                amount = float(input("Please enter the amount: "))
-                category = input("Please enter the category: ")
-                description = input("Please enter the description: ")
 
-                if add_transaction(records, user_starting_balance, transaction_type, amount, category, description):
-                    print("交易已成功紀錄")
-                else:
-                    print("目前餘額不足扣款")
-            else:
+            if (transaction_type != "income") and (transaction_type != "expense"):
                 print("Invalid transaction type")
+                continue
+
+            amount = float(input("Please enter the amount: "))
+            category = input("Please enter the category: ")
+            description = input("Please enter the description: ")
+
+            transaction_result = add_transaction(records, user_starting_balance, transaction_type, amount, category, description)
+
+            if transaction_result == "success":
+                print("交易成功")
+            elif transaction_result == "invalid_amount":
+                print("金額必須大於 0")
+            elif transaction_result == "insufficient_balance":
+                print("餘額不足")
+            else:
+                print("您輸入的交易紀錄有誤")
+
         elif choice == "2":
             display_all_transactions(records)
+
         elif choice == "3":
             display_financial_summary(records, user_starting_balance)
+
         elif choice == "4":
             break
+
         else:
             print("Invalid option")
 
