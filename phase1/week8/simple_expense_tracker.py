@@ -74,12 +74,46 @@ def display_financial_summary(records, starting_balance):
     print(f"Total expense: {total_expense}")
     print(f"Current balance: {current_balance}")
 
-print("正常資料測試")
-display_financial_summary(records, starting_balance)
-print()
-print("沒有交易測試")
-display_financial_summary(empty_records, starting_balance)
 
+user_starting_balance = float(input("Please enter your current asset: "))
+if user_starting_balance >= 0:
+    while True:
+        print("Simple Expense Tracker")
+        print()
+        print("1. Add transaction")
+        print("2. View all transactions")
+        print("3. View financial summary")
+        print("4. Exit")
+        print()
+        choice = input("Please choose an option(1-4): ")
+        if choice == "1":
+            transaction_type = input("Please enter income or expense: ")
+            if (transaction_type == "income") or (transaction_type == "expense"):
+                amount = float(input("Please enter the amount: "))
+                category = input("Please enter the category: ")
+                description = input("Please enter the description: ")
+
+                if add_transaction(records, user_starting_balance, transaction_type, amount, category, description):
+                    print("交易已成功紀錄")
+                else:
+                    print("目前餘額不足扣款")
+            else:
+                print("Invalid transaction type")
+        elif choice == "2":
+            display_all_transactions(records)
+        elif choice == "3":
+            display_financial_summary(records, user_starting_balance)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid option")
+
+
+# print("正常資料測試")
+# display_financial_summary(records, starting_balance)
+# print()
+# print("沒有交易測試")
+# display_financial_summary(empty_records, starting_balance)
 
 # print(f"正常案例:\ntest records 有 {len(records)} 筆")
 # display_all_transactions(records)
