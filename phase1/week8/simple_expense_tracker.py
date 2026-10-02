@@ -104,43 +104,6 @@ def display_financial_summary(records, starting_balance):
     print(f"Total expense: {total_expense}")
     print(f"Current balance: {current_balance}")
 
-result1 = add_transaction(test1_records, starting_balance, "income", 500, "salary", "job")
-result2 = add_transaction(test2_records, starting_balance, "salary", 500, "salary", "job")
-result3 = add_transaction(test3_records, starting_balance, "income", 0, "salary", "job")
-result4 = add_transaction(test4_records, starting_balance, "expense", 500000, "food", "dinner")
-
-print("Test 1")
-print("Expected status: success")
-print(f"Actual status: {result1}")
-print()
-print("Expected number of records: 4")
-print(f"Actual number of records: {len(test1_records)}")
-print()
-
-print("Test 2")
-print("Expected status: invalid_transaction_type")
-print(f"Actual status: {result2}")
-print()
-print("Expected number of records: 3")
-print(f"Actual number of records: {len(test2_records)}")
-print()
-
-print("Test 3")
-print("Expected status: invalid_amount")
-print(f"Actual status: {result3}")
-print()
-print("Expected number of records: 3")
-print(f"Actual number of records: {len(test3_records)}")
-print()
-
-print("Test 4")
-print("Expected status: insufficient_balance")
-print(f"Actual status: {result4}")
-print()
-print("Expected number of records: 3")
-print(f"Actual number of records: {len(test4_records)}")
-print()
-
 
 user_starting_balance = float(input("Please enter your current asset: "))
 if user_starting_balance >= 0:
@@ -187,6 +150,44 @@ if user_starting_balance >= 0:
 
         else:
             print("Invalid option")
+
+
+
+#result1 = add_transaction(test1_records, starting_balance, "income", 500, "salary", "job")
+#result2 = add_transaction(test2_records, starting_balance, "salary", 500, "salary", "job")
+#result3 = add_transaction(test3_records, starting_balance, "income", 0, "salary", "job")
+#result4 = add_transaction(test4_records, starting_balance, "expense", 500000, "food", "dinner")
+
+#print("Test 1")
+#print("Expected status: success")
+#print(f"Actual status: {result1}")
+#print()
+#print("Expected number of records: 4")
+#print(f"Actual number of records: {len(test1_records)}")
+#print()
+
+#print("Test 2")
+#print("Expected status: invalid_transaction_type")
+#print(f"Actual status: {result2}")
+#print()
+#print("Expected number of records: 3")
+#print(f"Actual number of records: {len(test2_records)}")
+#print()
+
+#print("Test 3")
+#print("Expected status: invalid_amount")
+#print(f"Actual status: {result3}")
+#print()
+#print("Expected number of records: 3")
+#print(f"Actual number of records: {len(test3_records)}")
+#print()
+
+#print("Test 4")
+#print("Expected status: insufficient_balance")
+#print(f"Actual status: {result4}")
+#print()
+#print(f"Actual number of records: {len(test4_records)}")
+#print()
 
 
 # print("正常資料測試")
